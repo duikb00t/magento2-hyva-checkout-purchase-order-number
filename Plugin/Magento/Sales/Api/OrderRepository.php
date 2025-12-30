@@ -64,7 +64,10 @@ class OrderRepository
 
             /** @var OrderExtensionInterface $target */
             $target = $extensionAttributes ?? $this->orderExtensionFactory->create();
-            $target->setPurchaseOrderNumber($order->getPurchaseOrderNumber());
+            $target->setPurchaseOrderNumber(
+                $order->getPurchaseOrderNumber() ?? $order->getData('purchase_order_number')
+            );
+
 
             $order->setExtensionAttributes($target);
         } catch (Exception $exception) {
